@@ -155,6 +155,9 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
+" Autopep8
+Plug 'tell-k/vim-autopep8'
+
 if count(g:bundle_groups, 'tmux')
     " tmux
     " For tmux navigator Ctrl-hjkl
@@ -381,11 +384,11 @@ call plug#end()
 
     "let g:ycm_seed_identifiers_with_syntax=1   "语言关键字补全, 不过python关键字都很短，所以，需要的自己打开
 
-    " 跳转到定义处, 分屏打开
-    let g:ycm_goto_buffer_command = 'horizontal-split'
+    " 跳转到定义处, 在新标签页面打开
+    let g:ycm_goto_buffer_command = 'new-tab'
     " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-    nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-    nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+    " nnoremap <C-B> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+    nnoremap <C-B> :YcmCompleter GoToDeclaration<CR>
 
     " 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
     " old version
@@ -450,6 +453,11 @@ call plug#end()
 
 " closetag {{{
     let g:closetag_html_style=1
+" }}}
+
+" ################### 格式化 #####################
+" autopep8 {{{
+  let g:autopep8_disable_show_diff=1
 " }}}
 
 " ################### 快速编码 ###################

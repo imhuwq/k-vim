@@ -50,7 +50,7 @@ lnif() {
 }
 
 
-echo "Step1: backing up current vim config"
+echo "Step0: backing up current vim config"
 today=`date +%Y%m%d`
 if $FOR_VIM; then
     for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
@@ -60,6 +60,22 @@ if $FOR_NEOVIM; then
     for i in $HOME/.config/nvim $HOME/.config/nvim/init.vim; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
     for i in $HOME/.config/nvim/init.vim $HOME/.config/nvim; do [ -L $i ] && unlink $i ; done
 fi
+
+echo "Step1: install system package dependencies"
+sudo apt update
+sudo apt-get install ctags
+sudo apt-get install build-essential cmake python-dev
+sudo apt-get install silversearcher-ag
+
+sudo pip install pyflakes
+sudo pip install pylint
+sudo pip install pep8
+
+sudo apt-get install nodejs npm
+sudo npm install -g jslint
+sudo npm install jshint -g
+
+sudo apt install exuberant-ctags
 
 echo "Step2: setting up symlinks"
 if $FOR_VIM; then
@@ -87,6 +103,7 @@ echo "Step4: compile YouCompleteMe"
 echo "It will take a long time, just be patient!"
 echo "If error,you need to compile it yourself"
 echo "cd $CURRENT_DIR/bundle/YouCompleteMe/ && python install.py --clang-completer"
+mkdir -p $CURRENT_DIR/bundle/YouCompleteMe/
 cd $CURRENT_DIR/bundle/YouCompleteMe/
 git submodule update --init --recursive
 if [ `which clang` ]   # check system clang

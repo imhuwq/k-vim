@@ -1,45 +1,4 @@
 k-vim
-=======================
-
-**Note**: 9.1版本的文档/wiki等, 处理中(原先的常见问题FAQ/插件演示和使用/自定义快捷键等)
-
-当前进度30%
-
-----------------
-
-> VERSION: 9.1
-
-> LAST_UPDATE_TIME: 2015-12-15
-
-> 本次更新: 大版本更新, 众多细节优化
-
-详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
-
-# 目标
-
-> Just a Better Vim Config. Keep it Simple.
-
-
-**PS**: 服务器端无插件`k-vim`简化版本(curl直接设置vimrc即可)[vim-for-server](https://github.com/wklken/vim-for-server)
-
-**PPS**: 一份tmux配置 [k-tmux](https://github.com/wklken/k-tmux)
-
----------------------------------
-
----------------------------------
-
-# 截图
-
-solarized主题
-
-![solarized](https://github.com/wklken/gallery/blob/master/vim/solarized.png?raw=true)
-
-molokai主题
-
-![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
-
----------------------------------
----------------------------------
 
 # 安装步骤
 
@@ -49,57 +8,7 @@ molokai主题
 git clone https://github.com/wklken/k-vim.git
 ```
 
-
-### 2. 安装依赖包
-
-
-##### 2.1 系统依赖 # ctags, ag(the_silver_searcher)
-
-```
-# ubuntu
-sudo apt-get install ctags
-sudo apt-get install build-essential cmake python-dev  #编译YCM自动补全插件依赖
-sudo apt-get install silversearcher-ag
-
-# centos
-sudo yum install python-devel.x86_64
-sudo yum groupinstall 'Development Tools'
-sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-sudo yum install the_silver_searcher
-sudo yum install cmake
-
-# mac
-brew install ctags
-brew install the_silver_searcher
-```
-
-##### 2.2 使用Python
-
-```
-sudo pip install pyflakes
-sudo pip install pylint
-sudo pip install pep8
-```
-
-##### 2.3 如果使用Javascript(不需要的跳过)
-
-```
-# 安装jshint和jslint,用于javascript语法检查
-# 需要nodejs支持,各个系统安装见文档 https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-
-# ubuntu
-sudo apt-get install nodejs npm
-sudo npm install -g jslint
-sudo npm install jshint -g
-
-# mac
-brew install node
-npm install jshint -g
-npm install jslint -g
-```
-
-
-### 3. 安装
+### 2. 安装
 
 ```
 进入目录, 执行安装
@@ -113,15 +22,6 @@ sh -x install.sh
 
 ------------------------
 ------------------------
-
-# 移除安装
-
-```
-cd ~ && rm -rf .vim .vimrc .vimrc.bundles && cd -
-```
-
----------------------------------
----------------------------------
 
 # 常见问题
 
@@ -160,7 +60,6 @@ let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 
 :PlugUpgrade     Upgrade vim-plug itself      升级本身
 :PlugStatus      Check the status of plugins  查看插件状态
 ```
-
 
 
 ### 插件列表
@@ -265,6 +164,9 @@ kj        代替<Esc>，不用到角落去按esc了
 ctrl+n    相对/绝对行号切换
 <enter>   normal模式下回车选中当前项
 
+10. go to definition
+Ctrl + B
+
 更多细节优化:
     1. j/k 对于换行展示移动更友好
     2. HL 修改成 ^$, 更方便在同行移动
@@ -285,42 +187,6 @@ ctrl+n    相对/绝对行号切换
 ------------------------
 ------------------------
 
-### UPDATE_LOG
-
-version 9.1
-
-```
-插件部分:
-1. 使用 'junegunn/vim-plug' 替代 'VundleVim/Vundle.vim' 来管理插件, 安装/更新速度更快
-2. 支持自定义插件集合, 可以配置自己需要安装的插件
-3. 去除tomorrow主题插件 'chriskempson/vim-tomorrow-theme'
-4. Javascript插件, 使用 'othree/javascript-libraries-syntax.vim' 替代 'nono/jquery.vim',
-5. Javascript插件, 使用 'othree/yajs.vim' 替代 'jelera/vim-javascript-syntax'
-6. 去除 minibufferexpl 所有配置(ctrlspace替代)
-7. 去除 taglist 所有配置(tagbar和ctrl-funky替代)
-8. Python插件, 增加 'hynek/vim-python-pep8-indent'
-9. Python插件, 去除 'kevinw/pyflakes-vim'
-10. Go插件, 使用 'fatih/vim-go' 替代 'Blackrush/vim-gocode'
-11. 快速移动, 增加插件 'unblevable/quick-scope', 按f/F/t/T时触发, 行内快速移动, 与 easymotion 互补
-12. (bundle_groups配置了tmux)tmux插件 'christoomey/vim-tmux-navigator'
-13. (bundle_groups配置了json)json插件 'elzr/vim-json'
-
-细节:
-1. 增加 leader+w 保存文件
-2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1'
-3. 插件 'terryma/vim-expand-region', 增加自定义每次加减的区域配置
-4. 解决在insert mode粘贴代码缩进错乱问题(以前需要:set paste . 即k-vim中F5快捷键, 现在不需要了)
-
-其他:
-1. UPDATE_LOG文件迁移到github wiki
-```
-
-### Contributors
-
-thx a lot. 可以给我提pull request:)
-
-查看详情 [git-contributors](https://github.com/wklken/k-vim/graphs/contributors)
-
 ### Inspire
 
 1. vimrc文件布局`vimrc+vimrc.bundles`配置方式参考 [maximum-awesome](https://github.com/square/maximum-awesome)
@@ -339,22 +205,11 @@ thx a lot. 可以给我提pull request:)
 
 ### Donation
 
-如果你认为对你有所帮助, You can Buy me a coffee:)
+如果你认为对你有所帮助, 你可以赞助原作者:)
 
+原作者的 [Github](https://github.com/wklken)
 
-![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation_w.jpg)
-
-------------------------
+原项目地址 [K-Vim](https://github.com/wklken/k-vim)
 ------------------------
 
 The End!
-
-wklken (凌岳/pythoner/vim党预备党员)
-
-Email: wklken@yeah.net
-
-Github: https://github.com/wklken
-
-Blog: [http://www.wklken.me](http://www.wklken.me)
-
-2013-06-11 于深圳

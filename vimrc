@@ -98,7 +98,7 @@ set cursorline
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
+" set t_ti= t_te=
 
 
 " 鼠标暂不启用, 键盘党....
@@ -227,12 +227,12 @@ set ttyfast
 set nrformats=
 
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set relativenumber number
-au FocusLost * :set norelativenumber number
+" set relativenumber number
+" au FocusLost * :set norelativenumber number
 au FocusGained * :set relativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
 autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+" autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -259,7 +259,7 @@ set encoding=utf-8
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set helplang=cn
-"set langmenu=zh_CN.UTF-8
+"set langmenu=zh_CN.UTF-8
 "set enc=2byte-gb18030
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim
 set termencoding=utf-8
@@ -337,25 +337,19 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
-" F1 - F6 设置
+" F1 - F7 设置
 
 " F1 废弃这个键,防止调出系统帮助
 " I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
-noremap <F1> <Esc>"
+" nnoremap <F1> <Esc>
 
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
-    set number!
-  else
-    set relativenumber!
-  endif
-  set number?
+  set number!
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
+
 " F3 显示可打印字符开关
 nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
@@ -367,6 +361,12 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+
+" F7 快速设置 vim 的 python interpreter 为当前目录下的 python virtualenv
+" 和 pyenv 以及 pyenv-virtualenv 搭配使用, 非常方便
+:autocmd FileType python nnoremap <buffer> <F7>c :YcmCompleter RestartServer python
+:autocmd FileType python nnoremap <buffer> <F7>2 :YcmCompleter RestartServer /usr/bin/python2.7
+:autocmd FileType python nnoremap <buffer> <F7>3 :YcmCompleter RestartServer /usr/bin/python3.5
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
@@ -500,7 +500,6 @@ autocmd TabLeave * let g:last_active_tab = tabpagenr()
 nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
 
-
 " => 选中及操作改键
 
 " 调整缩进后自动选中，方便再次操作
@@ -542,9 +541,12 @@ nnoremap <C-y> 2<C-y>
 
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :q!<CR>
 
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
+" 保存 py 文件时自动按 pep8 格式化
+autocmd BufWritePre *.py :Autopep8
 
 " 交换 ' `, 使得可以快速使用'跳到marked位置
 nnoremap ' `
@@ -591,7 +593,7 @@ function! AutoSetFileHead()
 
     "如果文件类型为python
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
+"       call setline(1, "\#!/usr/bin/env python")
         call append(1, "\# encoding: utf-8")
     endif
 
@@ -665,8 +667,8 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme solarized
-" colorscheme molokai
+" colorscheme solarized
+colorscheme molokai
 " colorscheme desert
 
 
